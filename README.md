@@ -1,4 +1,4 @@
-# 📝 Todoku v2 — Smart To-Do List & Calendar
+# 📝 Rumi v3 — Smart To-Do List & Calendar
 
 Aplikasi to-do list pintar untuk **iOS & Android** (React Native + **Expo SDK 54**).
 Ketik agenda pakai bahasa sehari-hari, aplikasi otomatis membaca tanggal, jam, dan kategorinya.
