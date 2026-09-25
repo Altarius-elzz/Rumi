@@ -95,4 +95,67 @@
   if (typeof g.globalThis === 'undefined') {
     g.globalThis = g;
   }
+
+  // --- Web API base classes referenced during RN 0.81 startup -------------
+  // Some Hermes/Expo Go builds don't predefine these. React Native registers
+  // real implementations lazily, but subclasses may reference the *global*
+  // base class before it materializes. We provide harmless stub classes so
+  // those references resolve; if the runtime already has the real one, we
+  // leave it untouched (guarded below). RN may then overwrite our stub with
+  // its full implementation — both paths are safe.
+  function ensureClass(name, factory) {
+    if (typeof g[name] === 'undefined') {
+      g[name] = factory();
+    }
+  }
+
+  // Performance timeline classes
+  ensureClass('PerformanceEntry', function () {
+    return function PerformanceEntry() {};
+  });
+  ensureClass('PerformanceObserver', function () {
+    var PerformanceObserver = function PerformanceObserver() {};
+    PerformanceObserver.prototype.observe = function () {};
+    PerformanceObserver.prototype.disconnect = function () {};
+    PerformanceObserver.prototype.takeRecords = function () {
+      return [];
+    };
+    PerformanceObserver.supportedEntryTypes = [];
+    return PerformanceObserver;
+  });
+  ensureClass('PerformanceObserverEntryList', function () {
+    var C = function PerformanceObserverEntryList() {};
+    C.prototype.getEntries = function () {
+      return [];
+    };
+    C.prototype.getEntriesByType = function () {
+      return [];
+    };
+    C.prototype.getEntriesByName = function () {
+      return [];
+    };
+    return C;
+  });
+  ensureClass('PerformanceMark', function () {
+    return function PerformanceMark() {};
+  });
+  ensureClass('PerformanceMeasure', function () {
+    return function PerformanceMeasure() {};
+  });
+
+  // Event system base classes
+  ensureClass('EventTarget', function () {
+    var EventTarget = function EventTarget() {};
+    EventTarget.prototype.addEventListener = function () {};
+    EventTarget.prototype.removeEventListener = function () {};
+    EventTarget.prototype.dispatchEvent = function () {
+      return false;
+    };
+    return EventTarget;
+  });
+  ensureClass('Event', function () {
+    return function Event(type) {
+      this.type = type;
+    };
+  });
 })();
