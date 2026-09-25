@@ -1,10 +1,10 @@
 # 📝 Rumi v3 — Smart To-Do List & Calendar
 
-Aplikasi to-do list pintar untuk **iOS & Android** (React Native + **Expo SDK 54**).
+Aplikasi to-do list pintar untuk **iOS & Android** (React Native + **Expo SDK 53**).
 Ketik agenda pakai bahasa sehari-hari, aplikasi otomatis membaca tanggal, jam, dan kategorinya.
 
 ![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-blueviolet)
-![Expo](https://img.shields.io/badge/Expo-SDK%2054-black)
+![Expo](https://img.shields.io/badge/Expo-SDK%2053-black)
 
 ---
 
